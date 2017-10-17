@@ -47,12 +47,60 @@
   }
 
   .user-details {
-    input {
-      border: 1px solid $green;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 5px;
-      margin: 18px;
+    .name {
+
+      input {
+        border: 1px solid $green;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        margin: 18px;
+      }
+    }
+
+    .lang {
+      .lang-checkboxes {
+        margin-left: 100px;
+      }
+    }
+
+    .timepicker {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+
+      th.cell-head {
+        text-align: center;
+        background-color: $red;
+        color: white;
+        font-size: 14px;
+        padding: 6px;
+      }
+
+      tbody {
+        tr {
+          td.cell {
+            text-align: center;
+            background-color: lighten($background-color, 1.4);
+            color: $text-color;
+            padding: 6px;
+            line-height: 22px;
+
+            &.time {
+              width: 80px;
+              background-color: white;
+            }
+            &.cell-time {
+              background-color: white;
+              cursor: pointer;
+            }
+            &.available {
+              background-color: $green;
+              color: white;
+            }
+          }
+        }
+      }
     }
   }
 }

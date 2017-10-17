@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import Plus from 'react-icons/lib/fa/plus-circle'
 import ArrowRight from 'react-icons/lib/fa/arrow-right'
 import Check from 'react-icons/lib/fa/check'
+import CheckCircle from 'react-icons/lib/fa/check-circle'
 
-import {days, times} from '../../constants'
+import {days, times, langs} from '../../constants'
 import {timeToReadable} from '../../helpers'
 import User from '../../User'
 import Menu from '../Menu/Menu'
@@ -12,6 +13,9 @@ import './Config.css'
 class Config extends Component {
   constructor(props) {
     super(props)
+
+    this.updateUser = this.updateUser.bind(this);
+
     this.state = {
       currentUser: props.users && props.users[0],
       users: props.users
@@ -40,9 +44,38 @@ class Config extends Component {
   }
 
   renameUser(evt) {
-    const user = this.state.currentUser
-    user.name = evt.target.value
-    this.setState({currentUser: user})
+    this.updateUser(user => {
+      user.name = evt.target.value
+      return user;
+    });
+  }
+
+  toggleLang(lang) {
+    this.updateUser(user => {
+      user.langs[lang] = !user.langs[lang];
+      return user;
+    });
+  }
+
+  toggleAvailableAt(day, time) {
+    this.updateUser(user => {
+      user.toggleAvailableAt(day, time);
+      return user;
+    });
+  }
+
+  toggleAll(day) {
+    const currentUser = this.state.currentUser
+    const hasAvailability = currentUser.hasAvailabilityOnDay(day)
+    times.forEach(time => {
+      currentUser.toggleAvailableAt(day, time, !hasAvailability)
+    })
+    this.setState({currentUser})
+  }
+
+  updateUser(action) {
+    const currentUser = action(this.state.currentUser)
+    this.setState({currentUser})
   }
 
   render() {
@@ -82,11 +115,26 @@ class Config extends Component {
   renderUserDetails() {
     return (
       <div className="user-details">
-        <input
-          type="text"
-          value={this.state.currentUser.name}
-          onChange={evt => this.renameUser(evt)}
-        />
+        <div className="name">
+        <label>Name</label>
+          <input
+            type="text"
+            className="name-input"
+            value={this.state.currentUser.name}
+            onChange={evt => this.renameUser(evt)}
+          />
+        </div>
+        <div className="lang">
+          <label>Languages</label>
+          <div className="lang-checkboxes">
+          {Object.keys(langs).map(lang_key => (
+            <div className="lang-checkbox" key={lang_key}>
+            <input type="checkbox" value="true" checked={this.state.currentUser.canSpeak(lang_key)} onChange={() => this.toggleLang(lang_key)} />
+            <label>{langs[lang_key]}</label>
+            </div>
+          ))}
+          </div>
+        </div>
         <table className="timepicker">
           <thead>
             <tr>
@@ -97,15 +145,23 @@ class Config extends Component {
                 </th>
               ))}
             </tr>
+            <tr>
+              <th />
+              {days.map((day, index) => (
+                <th key={index} className="cell-head" onClick={() => this.toggleAll(index)}>
+                  <CheckCircle />
+                </th>
+              ))}
+            </tr>
           </thead>
           <tbody>
             {times.map(time => (
               <tr>
-                <td>{timeToReadable(time)}</td>
+                <td className="cell time">{timeToReadable(time)}</td>
                 {days.map((day, index) => {
-                  let className = 'cell-time'
+                  let className = 'cell cell-time'
                   let content = null
-                  if (this.state.currentUser.isAvailableAt(day, time)) {
+                  if (this.state.currentUser.isAvailableAt(index, time)) {
                     className += ' available'
                     content = <Check />
                   }
@@ -115,7 +171,7 @@ class Config extends Component {
                       key={index}
                       className={className}
                       onClick={() =>
-                        this.state.currentUser.toggleAvailableAt(day, time)}
+                        this.toggleAvailableAt(index, time)}
                     >
                       {content}
                     </td>

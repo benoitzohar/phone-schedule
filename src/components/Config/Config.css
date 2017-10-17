@@ -34,9 +34,36 @@
       flex-direction: column;
       align-items: center;
       font-size: 18px; }
-  .Config .user-details input {
+  .Config .user-details .name input {
     border: 1px solid #a1cfc4;
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
     margin: 18px; }
+  .Config .user-details .lang .lang-checkboxes {
+    margin-left: 100px; }
+  .Config .user-details .timepicker {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto; }
+    .Config .user-details .timepicker th.cell-head {
+      text-align: center;
+      background-color: #ea8b8b;
+      color: white;
+      font-size: 14px;
+      padding: 6px; }
+    .Config .user-details .timepicker tbody tr td.cell {
+      text-align: center;
+      background-color: #f6f6f6;
+      color: #999;
+      padding: 6px;
+      line-height: 22px; }
+      .Config .user-details .timepicker tbody tr td.cell.time {
+        width: 80px;
+        background-color: white; }
+      .Config .user-details .timepicker tbody tr td.cell.cell-time {
+        background-color: white;
+        cursor: pointer; }
+      .Config .user-details .timepicker tbody tr td.cell.available {
+        background-color: #a1cfc4;
+        color: white; }

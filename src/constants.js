@@ -21,3 +21,5 @@ while (i < endTime) {
     i += 30
   }
 }
+
+export const langs = {'fr'  : 'French', 'en': 'English'}
