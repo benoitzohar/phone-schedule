@@ -1,0 +1,28 @@
+@import '../../colors.scss';
+
+.Menu {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  padding: 20px;
+  font-size: 30px;
+  transition: background-color 2s;
+
+  &:hover {
+    background-color: darken($background-color, 0.01);
+  }
+
+  a {
+    text-decoration: none;
+    color: $text-color;
+
+    &:hover,
+    &:active {
+      color: $green;
+    }
+
+    &.hidden {
+      opacity: 0;
+    }
+  }
+}

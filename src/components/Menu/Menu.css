@@ -1,0 +1,16 @@
+.Menu {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  padding: 20px;
+  font-size: 30px;
+  transition: background-color 2s; }
+  .Menu:hover {
+    background-color: rgba(0, 0, 0, 0.05); }
+  .Menu a {
+    text-decoration: none;
+    color: #999; }
+    .Menu a:hover, .Menu a:active {
+      color: #a1cfc4; }
+    .Menu a.hidden {
+      opacity: 0; }
