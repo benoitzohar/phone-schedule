@@ -1,0 +1,48 @@
+.Schedule .day-picker {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px; }
+  .Schedule .day-picker button {
+    background-color: white;
+    color: #999;
+    border: 2px solid #a1cfc4;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-right: -1px;
+    margin-left: -1px;
+    font-size: 14px;
+    outline: none; }
+    .Schedule .day-picker button:hover, .Schedule .day-picker button.active {
+      background-color: #a1cfc4;
+      color: white;
+      outline: none; }
+
+.Schedule .table {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto; }
+  .Schedule .table th.cell {
+    text-align: center;
+    background-color: #a1cfc4;
+    color: white;
+    font-size: 14px;
+    padding: 6px; }
+  .Schedule .table tbody tr td.cell {
+    text-align: center;
+    background-color: #f6f6f6;
+    color: #999;
+    padding: 6px;
+    line-height: 22px; }
+    .Schedule .table tbody tr td.cell.time {
+      width: 80px;
+      background-color: white; }
+    .Schedule .table tbody tr td.cell.available {
+      background-color: white; }
+    .Schedule .table tbody tr td.cell.works {
+      background-color: #ea8b8b;
+      color: white; }
+    .Schedule .table tbody tr td.cell.lunch {
+      background-color: #a1cfc4;
+      color: white; }
