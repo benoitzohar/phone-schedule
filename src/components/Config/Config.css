@@ -67,3 +67,6 @@
       .Config .user-details .timepicker tbody tr td.cell.available {
         background-color: #a1cfc4;
         color: white; }
+    .Config .user-details .timepicker tbody tr td.cell-lunch {
+      background-color: #ea8b8b;
+      text-align: center; }

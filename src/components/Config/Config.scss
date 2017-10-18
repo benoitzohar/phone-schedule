@@ -48,7 +48,6 @@
 
   .user-details {
     .name {
-
       input {
         border: 1px solid $green;
         padding: 10px;
@@ -98,6 +97,10 @@
               background-color: $green;
               color: white;
             }
+          }
+          td.cell-lunch {
+            background-color: $red;
+            text-align: center;
           }
         }
       }

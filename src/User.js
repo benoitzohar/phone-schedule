@@ -40,8 +40,14 @@ class User {
   worksAt(day, time) {
     return this.work[day].indexOf(time) > -1
   }
+  getlunchTime(day) {
+    return this.lunch[day]
+  }
   hasLunchAt(day, time) {
     return this.lunch[day] === time
+  }
+  setLunchTime(day, time) {
+    this.lunch[day] = time
   }
   canSpeak(lang) {
     return this.langs[lang] || false

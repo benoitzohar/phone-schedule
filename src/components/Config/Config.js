@@ -77,6 +77,13 @@ class Config extends Component {
     Store.save()
   }
 
+  setLunchTime(evt, day) {
+    this.updateUser(user => {
+      user.setLunchTime(day, evt.target.value)
+      return user
+    })
+  }
+
   updateUser(action) {
     const currentUser = action(this.state.currentUser)
     this.setState({currentUser})
@@ -193,6 +200,23 @@ class Config extends Component {
                 })}
               </tr>
             ))}
+            <tr>
+              <td className="cell time">Lunch</td>
+              {days.map((day, day_index) => (
+                <td className="cell-lunch" key={day_index}>
+                  <select
+                    value={this.state.currentUser.getlunchTime(day_index)}
+                    onChange={evt => this.setLunchTime(evt, day_index)}
+                  >
+                    {times.map(time => (
+                      <option value={time} key={time}>
+                        {timeToReadable(time)}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+              ))}
+            </tr>
           </tbody>
         </table>
       </div>
