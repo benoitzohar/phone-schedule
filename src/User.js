@@ -4,7 +4,7 @@ class User {
     name,
     available = [[], [], [], [], [], [], []],
     work = [[], [], [], [], [], [], []],
-    lunch = [],
+    lunch = {},
     langs = {fr: false, en: false}
   ) {
     this.id = id
@@ -44,7 +44,7 @@ class User {
     return this.lunch[day]
   }
   hasLunchAt(day, time) {
-    return this.lunch[day] === time
+    return this.lunch[day] == time
   }
   setLunchTime(day, time) {
     this.lunch[day] = time
