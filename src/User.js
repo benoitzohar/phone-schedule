@@ -15,6 +15,11 @@ class User {
     this.langs = langs
   }
 
+  static initFromObject(obj) {
+    const {id, name, available, work, lunch, langs} = obj
+    return new User(id, name, available, work, lunch, langs)
+  }
+
   isAvailableAt(day, time) {
     return this.available[day] && this.available[day].indexOf(time) > -1
   }
@@ -23,14 +28,14 @@ class User {
       this.available[day] = []
     }
     if (this.isAvailableAt(day, time) || force === false) {
-      const pos = this.available[day].indexOf(time);
+      const pos = this.available[day].indexOf(time)
       this.available[day].splice(pos, 1)
     } else {
       this.available[day].push(time)
     }
   }
   hasAvailabilityOnDay(day) {
-    return this.available[day] && this.available[day].length > 0;
+    return this.available[day] && this.available[day].length > 0
   }
   worksAt(day, time) {
     return this.work[day].indexOf(time) > -1
@@ -39,7 +44,7 @@ class User {
     return this.lunch[day] === time
   }
   canSpeak(lang) {
-    return this.langs[lang] || false;
+    return this.langs[lang] || false
   }
 }
 

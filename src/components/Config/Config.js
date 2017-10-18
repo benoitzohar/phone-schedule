@@ -7,6 +7,7 @@ import CheckCircle from 'react-icons/lib/fa/check-circle'
 import {days, times, langs} from '../../constants'
 import {timeToReadable} from '../../helpers'
 import User from '../../User'
+import Store from '../../Store'
 import Menu from '../Menu/Menu'
 import './Config.css'
 
@@ -14,10 +15,12 @@ class Config extends Component {
   constructor(props) {
     super(props)
 
-    this.updateUser = this.updateUser.bind(this);
+    this.updateUser = this.updateUser.bind(this)
+
+    const currentUser = (props.users && props.users[0]) || new User()
 
     this.state = {
-      currentUser: props.users && props.users[0],
+      currentUser,
       users: props.users
     }
   }
@@ -46,22 +49,22 @@ class Config extends Component {
   renameUser(evt) {
     this.updateUser(user => {
       user.name = evt.target.value
-      return user;
-    });
+      return user
+    })
   }
 
   toggleLang(lang) {
     this.updateUser(user => {
-      user.langs[lang] = !user.langs[lang];
-      return user;
-    });
+      user.langs[lang] = !user.langs[lang]
+      return user
+    })
   }
 
   toggleAvailableAt(day, time) {
     this.updateUser(user => {
-      user.toggleAvailableAt(day, time);
-      return user;
-    });
+      user.toggleAvailableAt(day, time)
+      return user
+    })
   }
 
   toggleAll(day) {
@@ -71,11 +74,13 @@ class Config extends Component {
       currentUser.toggleAvailableAt(day, time, !hasAvailability)
     })
     this.setState({currentUser})
+    Store.save()
   }
 
   updateUser(action) {
     const currentUser = action(this.state.currentUser)
     this.setState({currentUser})
+    Store.save()
   }
 
   render() {
@@ -95,6 +100,7 @@ class Config extends Component {
       <div className="user-list">
         {this.state.users.map(user => (
           <div
+            key={user.id}
             className="user-item"
             onClick={() => this.setState({currentUser: user})}
           >
@@ -116,7 +122,7 @@ class Config extends Component {
     return (
       <div className="user-details">
         <div className="name">
-        <label>Name</label>
+          <label>Name</label>
           <input
             type="text"
             className="name-input"
@@ -127,12 +133,17 @@ class Config extends Component {
         <div className="lang">
           <label>Languages</label>
           <div className="lang-checkboxes">
-          {Object.keys(langs).map(lang_key => (
-            <div className="lang-checkbox" key={lang_key}>
-            <input type="checkbox" value="true" checked={this.state.currentUser.canSpeak(lang_key)} onChange={() => this.toggleLang(lang_key)} />
-            <label>{langs[lang_key]}</label>
-            </div>
-          ))}
+            {Object.keys(langs).map(lang_key => (
+              <div className="lang-checkbox" key={lang_key}>
+                <input
+                  type="checkbox"
+                  value="true"
+                  checked={this.state.currentUser.canSpeak(lang_key)}
+                  onChange={() => this.toggleLang(lang_key)}
+                />
+                <label>{langs[lang_key]}</label>
+              </div>
+            ))}
           </div>
         </div>
         <table className="timepicker">
@@ -148,7 +159,11 @@ class Config extends Component {
             <tr>
               <th />
               {days.map((day, index) => (
-                <th key={index} className="cell-head" onClick={() => this.toggleAll(index)}>
+                <th
+                  key={index}
+                  className="cell-head"
+                  onClick={() => this.toggleAll(index)}
+                >
                   <CheckCircle />
                 </th>
               ))}
@@ -156,7 +171,7 @@ class Config extends Component {
           </thead>
           <tbody>
             {times.map(time => (
-              <tr>
+              <tr key={time}>
                 <td className="cell time">{timeToReadable(time)}</td>
                 {days.map((day, index) => {
                   let className = 'cell cell-time'
@@ -170,8 +185,7 @@ class Config extends Component {
                     <td
                       key={index}
                       className={className}
-                      onClick={() =>
-                        this.toggleAvailableAt(index, time)}
+                      onClick={() => this.toggleAvailableAt(index, time)}
                     >
                       {content}
                     </td>
