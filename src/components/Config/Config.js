@@ -3,6 +3,7 @@ import Plus from 'react-icons/lib/fa/plus-circle'
 import ArrowRight from 'react-icons/lib/fa/arrow-right'
 import Check from 'react-icons/lib/fa/check'
 import CheckCircle from 'react-icons/lib/fa/check-circle'
+import Sync from 'react-icons/lib/fa/check'
 
 import {days, times, langs} from '../../constants'
 import {timeToReadable} from '../../helpers'
@@ -121,6 +122,10 @@ class Config extends Component {
           <Plus />
           New member
         </div>
+        <div className="reset" onClick={() => Store.recalculate()}>
+          <Sync />
+          Recalculate the schedule (!)
+        </div>
       </div>
     )
   }
@@ -142,13 +147,15 @@ class Config extends Component {
           <div className="lang-checkboxes">
             {Object.keys(langs).map(lang_key => (
               <div className="lang-checkbox" key={lang_key}>
-                <input
-                  type="checkbox"
-                  value="true"
-                  checked={this.state.currentUser.canSpeak(lang_key)}
-                  onChange={() => this.toggleLang(lang_key)}
-                />
-                <label>{langs[lang_key]}</label>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="true"
+                    checked={this.state.currentUser.canSpeak(lang_key)}
+                    onChange={() => this.toggleLang(lang_key)}
+                  />
+                  {langs[lang_key]}
+                </label>
               </div>
             ))}
           </div>
@@ -208,6 +215,7 @@ class Config extends Component {
                     value={this.state.currentUser.getlunchTime(day_index)}
                     onChange={evt => this.setLunchTime(evt, day_index)}
                   >
+                    <option value="0">None</option>
                     {times.map(time => (
                       <option value={time} key={time}>
                         {timeToReadable(time)}

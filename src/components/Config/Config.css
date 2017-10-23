@@ -34,6 +34,16 @@
       flex-direction: column;
       align-items: center;
       font-size: 18px; }
+    .Config .user-list .reset {
+      border: 1px solid #df4f4f;
+      background: #ea8b8b;
+      color: white;
+      padding: 10px;
+      margin-top: 40px;
+      border-radius: 10px;
+      cursor: pointer; }
+      .Config .user-list .reset svg {
+        margin-right: 6px; }
   .Config .user-details .name input {
     border: 1px solid #a1cfc4;
     padding: 10px;

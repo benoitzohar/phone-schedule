@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import Phone from 'react-icons/lib/fa/phone'
 import Lunch from 'react-icons/lib/go/squirrel'
+import Pencil from 'react-icons/lib/fa/pencil'
+import Check from 'react-icons/lib/fa/check'
 
 import {days, times} from '../../constants'
 import {timeToReadable} from '../../helpers'
 import Menu from '../Menu/Menu'
+import Store from '../../Store'
 import './Schedule.css'
 
 class Schedule extends Component {
@@ -12,7 +15,22 @@ class Schedule extends Component {
     super(props)
     this.state = {
       currentDay: 0,
-      users: props.users
+      users: props.users,
+      edit_mode: false
+    }
+
+    Store.recalculate() //TODO remove this debug line
+  }
+
+  handleClick(time, user) {
+    if (!this.state.edit_mode) {
+      return
+    }
+
+    if (!user.hasLunchAt(this.state.currentDay, time)) {
+      user.toggleWorksAt(this.state.currentDay, time)
+      this.setState({users: [...this.state.users]})
+      Store.save()
     }
   }
 
@@ -49,7 +67,12 @@ class Schedule extends Component {
       <table className="table">
         <thead>
           <tr className="header">
-            <th />
+            <th
+              className="edit-mode"
+              onClick={() => this.setState({edit_mode: !this.state.edit_mode})}
+            >
+              {this.state.edit_mode ? <Check /> : <Pencil />}
+            </th>
             {this.state.users.map((user, index) => (
               <th className="cell" key={user.name}>
                 {user.name}
@@ -60,6 +83,7 @@ class Schedule extends Component {
         <tbody className="body">
           {times.map(time => this.renderRow(time))}
         </tbody>
+        <tfoot>{this.renderFooter()}</tfoot>
       </table>
     )
   }
@@ -82,9 +106,31 @@ class Schedule extends Component {
             className += ' lunch'
             content = <Lunch />
           }
+          if (this.state.edit_mode) {
+            className += ' clickable'
+          }
           return (
-            <td key={user.name + time} className={className}>
+            <td
+              key={user.name + time}
+              className={className}
+              onClick={() => this.handleClick(time, user)}
+            >
               {content}
+            </td>
+          )
+        })}
+      </tr>
+    )
+  }
+
+  renderFooter() {
+    return (
+      <tr className="row">
+        <td className="cell time">Total</td>
+        {this.state.users.map(user => {
+          return (
+            <td key={user.id} className="cell sum-time">
+              {timeToReadable(user.workTime(this.state.currentDay))}
             </td>
           )
         })}

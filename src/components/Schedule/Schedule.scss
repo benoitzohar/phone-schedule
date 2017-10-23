@@ -40,7 +40,12 @@
       padding: 6px;
     }
 
-    tbody {
+    .edit-mode {
+      color: $text-color;
+    }
+
+    tbody,
+    tfoot {
       tr {
         td.cell {
           text-align: center;
@@ -61,6 +66,13 @@
             color: white;
           }
           &.lunch {
+            background-color: $green;
+            color: white;
+          }
+          &.clickable {
+            cursor: pointer;
+          }
+          &.sum-time {
             background-color: $green;
             color: white;
           }

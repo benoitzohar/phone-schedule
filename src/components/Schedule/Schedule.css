@@ -29,20 +29,34 @@
     color: white;
     font-size: 14px;
     padding: 6px; }
-  .Schedule .table tbody tr td.cell {
+  .Schedule .table .edit-mode {
+    color: #999; }
+  .Schedule .table tbody tr td.cell,
+  .Schedule .table tfoot tr td.cell {
     text-align: center;
     background-color: #f6f6f6;
     color: #999;
     padding: 6px;
     line-height: 22px; }
-    .Schedule .table tbody tr td.cell.time {
+    .Schedule .table tbody tr td.cell.time,
+    .Schedule .table tfoot tr td.cell.time {
       width: 80px;
       background-color: white; }
-    .Schedule .table tbody tr td.cell.available {
+    .Schedule .table tbody tr td.cell.available,
+    .Schedule .table tfoot tr td.cell.available {
       background-color: white; }
-    .Schedule .table tbody tr td.cell.works {
+    .Schedule .table tbody tr td.cell.works,
+    .Schedule .table tfoot tr td.cell.works {
       background-color: #ea8b8b;
       color: white; }
-    .Schedule .table tbody tr td.cell.lunch {
+    .Schedule .table tbody tr td.cell.lunch,
+    .Schedule .table tfoot tr td.cell.lunch {
+      background-color: #a1cfc4;
+      color: white; }
+    .Schedule .table tbody tr td.cell.clickable,
+    .Schedule .table tfoot tr td.cell.clickable {
+      cursor: pointer; }
+    .Schedule .table tbody tr td.cell.sum-time,
+    .Schedule .table tfoot tr td.cell.sum-time {
       background-color: #a1cfc4;
       color: white; }
