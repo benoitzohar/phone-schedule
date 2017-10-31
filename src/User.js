@@ -50,8 +50,8 @@ class User {
   }
   workTime(day) {
     const nb_half_hour = this.work[day].length
-    let time = parseInt(nb_half_hour / 2) * 100
-    if (nb_half_hour % 2 != 0) {
+    let time = parseInt(nb_half_hour / 2, 10) * 100
+    if (nb_half_hour % 2 !== 0) {
       time += 30
     }
     return time
@@ -66,7 +66,7 @@ class User {
     return this.lunch[day] || 0
   }
   hasLunchAt(day, time) {
-    return this.lunch[day] == time
+    return String(this.lunch[day]) === String(time)
   }
   setLunchTime(day, time) {
     this.lunch[day] = time

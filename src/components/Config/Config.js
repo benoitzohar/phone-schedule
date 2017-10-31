@@ -4,6 +4,7 @@ import ArrowRight from 'react-icons/lib/fa/arrow-right'
 import Check from 'react-icons/lib/fa/check'
 import CheckCircle from 'react-icons/lib/fa/check-circle'
 import Sync from 'react-icons/lib/fa/check'
+import uid from 'uid'
 
 import {days, times, langs} from '../../constants'
 import {timeToReadable} from '../../helpers'
@@ -42,7 +43,7 @@ class Config extends Component {
       })
     } while (!is_unique)
     const users = this.state.users
-    const user = new User(Math.random(), new_name)
+    const user = new User(uid(20), new_name)
     users.push(user)
     this.setState({users, currentUser: user})
   }

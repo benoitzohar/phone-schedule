@@ -32,13 +32,19 @@ export default {
       })
 
       this.users.forEach(user => {
-        stats.max_working += stats.total_worked_halfs / this.users.length //TODO
+        stats.max_working[user.id] =
+          stats.total_worked_halfs / this.users.length
       })
       times.forEach(time => {
         let nb_of_people = 0
         let found_langs = []
+        let user_index = 0
+        let user_array_passes = 0
+        let all_done = false
 
-        this.users.forEach(user => {
+        while (!all_done) {
+          const user = this.users[user_index]
+
           if (nb_of_people >= MAX_PEOPLE_AT_THE_SAME_TIME) {
             return
           }
@@ -56,10 +62,20 @@ export default {
             ) {
               user.toggleWorksAt(day_index, time, true)
               found_langs.push(lang)
+
+              // TODO: stop after `starts.max_working[user.id]``
               nb_of_people++
             }
           })
-        })
+
+          all_done = user_array_passes > 2
+
+          user_index++
+          if (user_index >= this.users.length) {
+            user_index = 0
+            user_array_passes++
+          }
+        }
       })
     })
 
